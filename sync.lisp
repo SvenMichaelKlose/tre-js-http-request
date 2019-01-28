@@ -1,0 +1,8 @@
+(fn http-request (url params error-callback)
+  (!= (new *x-m-l-http-request)
+    (!.open "POST" url nil)
+    (set-utf8-request !)
+    (!.send params)
+    (| (== 200 !.status)
+       (funcall error-callback ! url params))
+    !.response-text))
